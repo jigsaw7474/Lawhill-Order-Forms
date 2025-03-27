@@ -29,7 +29,7 @@
             margin-bottom: 35px;
         }
         .logo {
-            max-width: 150px;
+            max-width: 200px;
             height: auto;
         }
         .title-section {
@@ -193,7 +193,7 @@
 <body>
     <div class="container" id="order-form">
         <div class="logo-container">
-            <img src="Lawhill%20Wines%20Logo.png" alt="Lawhill Wines Logo" class="logo"> <!-- Update this URL -->
+            <img src="https://example.com/path/to/your/logo.png" alt="Lawhill Wines Logo" class="logo"> <!-- Update this URL -->
         </div>
         <div class="title-section">
             <h1 class="main-title">Lawhill Wines</h1>
@@ -204,10 +204,10 @@
             <label for="salesperson">Sales Personnel (Select name)</label>
             <select id="salesperson">
                 <option value="">Select Name</option>
-                <option value="John Doe">John Doe</option>
-                <option value="Jane Smith">Jane Smith</option>
-                <option value="Alice Johnson">Alice Johnson</option>
-                <option value="Bob Brown">Bob Brown</option>
+                <option value="Rajen Prasad">Rajen Prasad</option>
+                <option value="Shiu">Shiu</option>
+                <option value="Maverick">Maverick</option>
+                <option value="Ares">Ares</option>
             </select>
         </div>
 
@@ -262,18 +262,270 @@
     <script>
         let orderList = [];
         const productNames = [
-            "Lawhill Sauvignon Blanc 2022",
-            "Lawhill Cabernet Sauvignon 2019",
-            "Lawhill Chardonnay 2021",
-            "Lawhill Pinot Noir 2020",
-            "Lawhill Rosé 2023",
-            "Lawhill Merlot 2020",
-            "Lawhill Shiraz 2018",
-            "Lawhill Zinfandel 2019",
-            "Coffee Blend A",
-            "Coffee Blend B",
-            "Fresh Orange Juice",
-            "Apple Juice"
+"Borgogno Langhe Riesling",  
+"Borgogno Barolo Classico",  
+"Borgogno Barolo Riserva",  
+"Borgogno Langhe Nebbiolo",  
+"Borgogno Barbera d'Alba Superiore",  
+"Villa Sparina Gavi del Comune di Gavi",  
+"Villa Sparina Gavi del Comune di Gavi 1500ml",  
+"Scarpa Moscato d'Asti",  
+"Scarpa Vermouth di Torino Rosso",  
+"Ridolfi Brunello di Montalcino",  
+"Ridolfi Fiero Rosso Toscana",  
+"Ricasoli Chianti Classico Brolio",  
+"Ricasoli Chianti Classico Riserva Brolio",  
+"Belvento Vermentino Toscana",  
+"Belvento Sireno Toscana",
+"Sella & Mosca Vermentino de Sardegna La Cala",  
+"Sella & Mosca Monteoro Vermentino di Gallura Superiore",  
+"Sella & Mosca Terre Bianche Alghero Torbato",  
+"Sella & Mosca Anemone Alghero Rosato",  
+"Sella & Mosca Cannonau di Sardegna Riserva",  
+"La Gioiosa Prosecco Treviso Brut",  
+"Nino Franco Nodi Valdobbiandene Prosecco Superiore",  
+"Nino Franco Rustico Valdobbiandene Prosecco Superiore",  
+"Nicolis Valpolicella Classico",  
+"Nicolis Amarone Valpolicella Classico",  
+"St Pauls Kellerei Sauvignon Blanc Gfill Alto Adige",  
+"St Pauls Kellerei Chardonnay Alto Adige",  
+"St Pauls Kellerei Pinot Nero Luzia Alto Adige",  
+"Cantina Lavis Pinot Grigio Trentino",  
+"Cantina Lavis Chardonnay Treviso",  
+"Cantina Lavis Sauvignon Blanc Trevenezie",  
+"Cusumano Angimbe Terre Sicilane Bianco",  
+"Cusumano Benuara Terre Siciliane Rosso",  
+"Alta Mora Etna Bianco",  
+"Alta Mora Etna Rosso",  
+"BellaVista Franciacorta Alma Gran Cuvee Franciacorta Brut",  
+"BellaVista Franciacorta Alma Gran Cuvee Franciacorta Brut 1500ml",
+"Pouilly-Fuissé Chartron et Trébuchet",  
+"Rully 1er Cru Meix Cadot Chartron et Trébuchet",  
+"Meursault Chartron et Trébuchet",  
+"Bourgogne Pinot Noir Chartron et Trébuchet",  
+"Gevrey Chambertin 1er Cru Les Champeaux BIO Chartron et Trébuchet",  
+"Vosne-Romanee Chartron et Trébuchet",  
+"Domaine Marguerite Carillon Santeny",  
+"Domaine Michaut Chablis",  
+"Domaine Michaut Chablis 1er Cru Vaucoupin",  
+"Moillard-Grivot Pommard 1er Cru Les Grands Epenots",  
+"Moillard-Grivot Nuits-Saint-Georges",  
+"Maison Sauvion Sancerre",  
+"Maison Sauvion Pouilly Fumé",  
+"Château Branaire-Ducru Saint-Julien",  
+"Maison Saint Aix 750ml",  
+"Pierre Péters Brut Cuvée de Réserve",  
+"Pierre Péters Les Chétillons",  
+"Pierre Péters Brut Millésime",  
+"Gremillet Selection Brut",  
+"Gremillet Rosé Brut",  
+"Gremillet Le Millésime Brut",  
+"Gremillet Rosé Vrai Extra Brut",  
+"Gremillet Cuvée Evidence Brut",  
+"Gremillet S Mathusalem 6L",  
+"Lallier R.015 Brut",  
+"Lallier Blanc de Blancs Brut",  
+"Georges Lacombe Grand Cuvée Brut",  
+"Château de la Galinière",  
+"Moulins De Citran Haut-Médoc",  
+"Grandial Blanc de Blancs Brut",  
+"Charton Blanc de Blancs Brut",  
+"Baron D'Arignac White Blend",  
+"Baron D'Arignac Red Blend",  
+"JP Chénet Chardonnay",  
+"JP Chénet Sauvignon Blanc",  
+"JP Chénet Merlot",  
+"JP Chénet Shiraz",  
+"JP Chénet Cabernet/Shiraz",  
+"JP Chénet Cabernet/Shiraz 187ml",  
+"JP Chénet Fashion Apple",  
+"JP Chénet Fashion Cassis",  
+"JP Chénet Fashion Litchi",  
+"JP Chénet Fashion Pineapple",  
+"JP Chénet Fashion Strawberry/Raspberry",  
+"JP Chénet Fashion Watermelon",  
+"Sheild Rosé",  
+"Sheild Albariño",  
+"Sheild Pinot Gris",  
+"Sheild Sauvignon Blanc",  
+"Sheild Chardonnay",  
+"Sheild Pinot Noir",  
+"Brightwater Gravels Rosé",  
+"Brightwater Gravels Pinot Gris",  
+"Brightwater Gravels Chardonnay",  
+"Brightwater Gravels Sauvignon Blanc",  
+"Brightwater Gravels Pinot Noir",  
+"Okiwi Bay Marlborough Sauvignon Blanc",  
+"Middle Earth Sauvignon Blanc",  
+"Mancura Etnia Moscato",  
+"Mancura Guardian Riserva Pinot Noir",  
+"Vistamar Brisa Merlot",  
+"Vistamar Reserva Pinot Noir",  
+"Vistamar Reserva Cabernet Sauvignon",  
+"Vistamar Cabernet Sauvignon/Carménère",  
+"Vistamar Reserva Malbec",  
+"Ziata Sauvignon Blanc",  
+"Ziata Pinot Noir",  
+"Freemark Abbey Chardonnay",  
+"Freemark Abbey Bosché Cabernet Sauvignon",  
+"Freemark Abbey Rutherford Cabernet Sauvignon",  
+"Freemark Abbey Howell Mountain Cabernet Sauvignon",  
+"Freemark Abbey Cabernet Sauvignon",
+"Napa Cellars Sauvignon Blanc",  
+"Napa Cellars Merlot",  
+"Napa Cellars Pinot Noir",  
+"Neyers 304 Chardonnay",  
+"Trinchero Mario's Cabernet Sauvignon",  
+"Trinchero Forte Red Wine",  
+"Cardinale Cabernet Sauvignon",  
+"La Jota Vineyard Howell Mountain Cabernet Sauvignon",  
+"Hartford Court Chardonnay",  
+"Hartford Court Pinot Noir",  
+"Joel Gott Unoaked Chardonnay",  
+"Joel Gott Santa Barbara Coast Pinot Noir",  
+"Joel Gott Pinot Noir",  
+"Joel Gott Oregon Pinot Noir",  
+"Joel Gott Palisades Red Wine",  
+"Kendall Jackson Grand Reserve Chardonnay",  
+"Kendall Jackson Grand Reserve Pinot Noir",  
+"Kendall Jackson Grand Reserve Cabernet Sauvignon",  
+"Liberated Pinot Noir",  
+"Sew & Sew Rosé",  
+"Sew & Sew Sauvignon Blanc",  
+"Sew & Sew Fiano",  
+"Shaw+Smith M3 Chardonnay",  
+"Shaw+Smith Sauvignon Blanc",  
+"Shaw+Smith Shiraz",  
+"3 Bridges 'Botrytis' Semillon 330ml",  
+"Elderton Small Victories Rosé",  
+"Elderton E Series Chardonnay",  
+"Elderton Barossa Cabernet Sauvignon",  
+"Elderton Barossa Shiraz",  
+"Elderton Command Shiraz",  
+"Gibson Discovery Road Graciano",  
+"Gibson Reserve Merlot",  
+"Gibson Isabelle Cabernet/Merlot",  
+"Gibson Dirtman Shiraz",  
+"Gibson Australian Old Vine Collection Eden Valley Shiraz",  
+"Gibson Australian Old Vine Collection Barossa Valley Shiraz",  
+"Gibson The Smithy Cabernet/Shiraz",  
+"Langmeil Bella Rouge Rosé",  
+"Langmeil Live Wire Riesling",  
+"Peter Lehmann Portrait Riesling",  
+"Peter Lehmann Wigan Eden Valley Riesling",  
+"Peter Lehmann Margaret Barossa Semillon",  
+"Peter Lehmann Wildcard Unoaked Chardonnay",  
+"Peter Lehmann Mentor Cabernet Sauvignon",  
+"Peter Lehmann Portrait Shiraz",  
+"Peter Lehmann The Barossa Shiraz",  
+"Peter Lehmann Eight Songs Shiraz",  
+"Peter Lehmann Stonewell Shiraz",  
+"Torbreck The Struie Shiraz",  
+"Katnook Merlot",  
+"Sam Miranda Ballerina Moscato",  
+"Sam Miranda Riesling",  
+"Sam Miranda Chardonnay",  
+"Sam Miranda Sauvignon Blanc",  
+"Sam Miranda Snow Road",  
+"Sam Miranda Ballerina Rosato",  
+"Sam Miranda Verduzzo",  
+"Sam Miranda Arneis",  
+"Sam Miranda Merlot",  
+"Sam Miranda Snow Road Cabernet Merlot",  
+"Sam Miranda Cabernet Sauvignon",  
+"Sam Miranda Shiraz",  
+"Sam Miranda Tempranillo",  
+"Sam Miranda Prosecco 200ml",  
+"Sam Miranda Prosato",  
+"Sam Miranda Prosecco",
+"Casella 1919 Cabernet Sauvignon",  
+"Casella 1919 Shiraz",  
+"Stella Bella Luminosa Cabernet Sauvignon",  
+"Suckfizzle Cabernet Sauvignon",  
+"Yabby Lake Red Claw Chardonnay",  
+"Yabby Lake Red Claw Pinot Noir",  
+"Sweet Lips Infusions Hibiscus Pomegranate & Lime",  
+"Sweet Lips Infusions Mango Elderflower & Passionfruit",  
+"Sweet Lips Infusions Peach Raspberry & Vanilla",  
+"Sweet Lips Infusions Pineapple Coconut & Mexican Lime",  
+"Poker Face Chardonnay",  
+"Poker Face Shiraz",  
+"Richland Moscato",  
+"Richland Pinot Grigio",  
+"Richland Chardonnay",  
+"Richland Sauvignon Blanc",  
+"Richland Merlot",  
+"Richland Cabernet Sauvignon",  
+"Richland Shiraz",  
+"Underline Semillon Sauvignon Blanc",  
+"Underline Shiraz",  
+"Gossips Rosé",  
+"Gossips Semillon/Sauvignon Blanc",  
+"Gossips Chardonnay",  
+"Gossips Merlot",  
+"Gossips Cabernet Sauvignon",  
+"Gossips Shiraz",  
+"Rumours Pink Moscato",  
+"Rumours Semillon Sauvignon Blanc",  
+"Rumours Chardonnay",  
+"Rumours Merlot",  
+"Rumours Cabernet Merlot",  
+"Rumours Cabernet Sauvignon",  
+"Rumours Shiraz",
+"Yellow Tail Pinot Grigio",  
+"Yellow Tail Chardonnay",  
+"Yellow Tail Sauvignon Blanc",  
+"Yellow Tail Merlot",  
+"Yellow Tail Pinot Noir",  
+"Yellow Tail Cabernet Merlot",  
+"Yellow Tail Cabernet Sauvignon",  
+"Yellow Tail Shiraz",  
+"Yellow Tail Cabernet Shiraz",  
+"Yellow Tail Bubbles 200ml",  
+"Yellow Tail Pink Bubbles Rosé 200ml",  
+"Yellow Tail Bubbles",  
+"Yellow Tail Pink Bubbles Rosé",  
+"Frankland Estate Olmo's Reward",  
+"Frankland Estate OR Magnum 1500ml",  
+"Frankland Estate Cabernet Sauvignon",  
+"Frankland Estate Isolation Ridge Cabernet Sauvignon",  
+"Frankland Estate Shiraz",  
+"Frankland Estate Isolation Ridge Syrah",  
+"Frankland Estate IR Magnum 1500ml Shiraz",  
+"Frankland Estate Smith Cullam Syrah",  
+"Oakridge Over The Shoulder Chardonnay",  
+"Oakridge Chardonnay",  
+"Oakridge 864 Single Block Chardonnay",  
+"Oakridge Pinot Noir",  
+"Rymill The Yearling Sauvignon Blanc",  
+"Rymill The Yearling Cabernet Sauvignon",  
+"Rymill Cabernet Sauvignon",
+"Oldenburg Vineyards Cabernet Sauvignon",  
+"Oldenburg Vineyards Cabernet Franc",  
+"Oldenburg Vineyards Chardonnay",  
+"Oldenburg Vineyards Chenin Blanc",  
+"Oldenburg Vineyards Grenache Noir",  
+"Oldenburg Vineyards Merlot",  
+"Oldenburg Vineyards Syrah",  
+"Oldenburg Vineyards <CL° Red Blend",  
+"Oldenburg Vineyards <CL° White Blend",  
+"Oldenburg Vineyards Rondekop Per Se",  
+"Oldenburg Vineyards Rondekop Rhodium",  
+"Oldenburg Vineyards Rondekop Stone Axe",
+"Real Juice Orange 2000ml",  
+"Real Juice Apple 2000ml",  
+"Real Juice Pineapple 2000ml",  
+"Real Juice Tropical 2000ml",  
+"Chotokusen Shirayuki Banzaimon Junmai Daiginjo (undiluted sake) 720ml (Sake)",  
+"Shirayuki Akafuji Junmai Ginjo 720ml (Sake)",  
+"Shirayuki Itami Morohaku Daiginjo 720ml (Sake)",  
+"Shirayuki Edo Genroku 720ml (Sake)",  
+"Konishi Daiginjo Hiyashibori 300ml (Sake)",  
+"Konishi Daiginjo Hiyashibori 720ml (Sake)",  
+"Josen Sesshu Otokoyama 720ml (Sake)",  
+"Josen Shirayuki Classic Junmai Sake 720ml (Sake)"  
+
+
         ];
 
         function showSuggestions() {
@@ -368,6 +620,12 @@
                 document.getElementById("additional-info").style.display = "none";
             }
 
+            // Hide search menu, add button, and label
+            document.getElementById("product-search").style.display = "none";
+            document.getElementById("quantity").style.display = "none";
+            document.querySelector(".add-product-btn").style.display = "none";
+            document.querySelector("label[for='product-search']").style.display = "none"; // Hide the label
+
             // Generate PDF
             const opt = {
                 margin:       5,
@@ -386,6 +644,12 @@
                 // Restore visibility of hidden fields
                 document.getElementById("delivery-details").style.display = "block";
                 document.getElementById("additional-info").style.display = "block";
+                
+                // Restore search menu, add button, and label
+                document.getElementById("product-search").style.display = "block";
+                document.getElementById("quantity").style.display = "block";
+                document.querySelector(".add-product-btn").style.display = "block";
+                document.querySelector("label[for='product-search']").style.display = "block"; // Restore the label
             });
         }
 
