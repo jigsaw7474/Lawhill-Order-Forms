@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lawhill Wines - Order Form</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="html2pdf.bundle.min.js"></script> <!-- Local reference to the downloaded file -->
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 40px auto;
+            padding: 40px;
+            border: 1px solid #d1d1d1;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            width: 210mm;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        .container {
+            max-width: 100%;
+            padding: 0;
+            background: none;
+            border-radius: 0;
+        }
+        .logo-container {
+            text-align: left;
+            margin-bottom: 35px;
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+        }
+        .title-section {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        .main-title {
+            font-size: 2.8em;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .sub-title {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #777;
+            margin-top: 5px;
+        }
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #555;
+            font-size: 1.1em;
+        }
+        select, input[type="text"], input[type="number"], textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #444;
+            background-color: #fff;
+        }
+        .product-input-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .product-input-group input[type="text"] {
+            flex-grow: 1;
+        }
+        .product-input-group input[type="number"] {
+            width: 100px;
+        }
+        .add-product-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        .add-product-btn:hover {
+            background-color: #1e7e34;
+        }
+        .order-list {
+            margin-top: 40px;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0; /* Reduced padding */
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9em; /* Reduced font size */
+        }
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.4em;
+            padding: 0;
+            margin-left: 15px;
+            transition: color 0.3s ease;
+        }
+        .remove-btn:hover {
+            color: #c82333;
+        }
+        #delivery-details {
+            margin-top: 25px;
+            padding: 20px;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            display: none;
+        }
+        textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #444;
+            background-color: #fff;
+        }
+        .process-order-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 18px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 40px;
+            transition: background-color 0.3s ease;
+        }
+        .process-order-btn:hover {
+            background-color: #0056b3;
+        }
+        #product-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: calc(100% - 20px);
+            border: 1px solid #ccc;
+            border-top: none;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            background-color: #fff;
+            z-index: 10;
+            display: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .suggestion-item {
+            padding: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
+        }
+        .suggestion-item:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container" id="order-form">
+        <div class="logo-container">
+            <img src="https://example.com/path/to/your/logo.png" alt="Lawhill Wines Logo" class="logo"> <!-- Update this URL -->
+        </div>
+        <div class="title-section">
+            <h1 class="main-title">Lawhill Wines</h1>
+            <h2 class="sub-title">Order Form</h2>
+        </div>
+
+        <div class="form-group">
+            <label for="salesperson">Sales Personnel (Select name)</label>
+            <select id="salesperson">
+                <option value="">Select Name</option>
+                <option value="John Doe">John Doe</option>
+                <option value="Jane Smith">Jane Smith</option>
+                <option value="Alice Johnson">Alice Johnson</option>
+                <option value="Bob Brown">Bob Brown</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="order-date">Select Order Date and Time</label>
+            <input type="datetime-local" id="order-date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="product-search">Search Product and Select</label>
+            <div class="product-input-group">
+                <input type="text" id="product-search" placeholder="Enter product name..." onkeyup="showSuggestions()">
+                <input type="number" id="quantity" min="1" value="1">
+                <button type="button" class="add-product-btn" onclick="addProduct()">Add</button>
+            </div>
+            <div id="product-suggestions"></div>
+        </div>
+
+        <div class="order-list" id="order-list"></div>
+
+        <div class="form-group">
+            <label for="delivery">Mode of Delivery</label>
+            <select id="delivery" onchange="toggleDelivery()">
+                <option value="Pickup">Pick-up</option>
+                <option value="Delivery">Delivery</option>
+            </select>
+        </div>
+
+        <div id="delivery-details" style="display: none;">
+            <div class="form-group">
+                <label for="customer">Customer/Delivery Address</label>
+                <input type="text" id="customer" placeholder="Enter customer name or delivery address">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cellar">Select Cellar to get stock</label>
+            <select id="cellar">
+                <option value="Nadi Cellar">Nadi Cellar</option>
+                <option value="Lami Cellar">Lami Cellar</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="additional-info">Additional Info (Optional)</label>
+            <textarea id="additional-info" rows="4" placeholder="Enter any additional details here..."></textarea>
+        </div>
+
+        <button type="button" class="process-order-btn" onclick="generatePDF()">Process Order</button>
+    </div>
+
+    <script>
+        let orderList = [];
+        const productNames = [
+            "Lawhill Sauvignon Blanc 2022",
+            "Lawhill Cabernet Sauvignon 2019",
+            "Lawhill Chardonnay 2021",
+            "Lawhill Pinot Noir 2020",
+            "Lawhill Rosé 2023",
+            "Lawhill Merlot 2020",
+            "Lawhill Shiraz 2018",
+            "Lawhill Zinfandel 2019",
+            "Coffee Blend A",
+            "Coffee Blend B",
+            "Fresh Orange Juice",
+            "Apple Juice"
+        ];
+
+        function showSuggestions() {
+            const searchInput = document.getElementById("product-search");
+            const suggestionsDiv = document.getElementById("product-suggestions");
+            const searchTerm = searchInput.value.toLowerCase();
+            suggestionsDiv.innerHTML = "";
+            suggestionsDiv.style.display = "none";
+
+            if (searchTerm.length > 0) {
+                const suggestions = productNames.filter(product =>
+                    product.toLowerCase().includes(searchTerm)
+                );
+
+                if (suggestions.length > 0) {
+                    suggestionsDiv.style.display = "block";
+                    suggestions.forEach(suggestion => {
+                        const suggestionItem = document.createElement("div");
+                        suggestionItem.classList.add("suggestion-item");
+                        suggestionItem.textContent = suggestion;
+                        suggestionItem.onclick = function() {
+                            searchInput.value = suggestion;
+                            suggestionsDiv.style.display = "none";
+                        };
+                        suggestionsDiv.appendChild(suggestionItem);
+                    });
+                }
+            }
+        }
+
+        function addProduct() {
+            const product = document.getElementById("product-search").value.trim();
+            const quantity = parseInt(document.getElementById("quantity").value);
+            const productExists = productNames.includes(product);
+            if (product && quantity > 0 && productExists) {
+                orderList.push({ product, quantity });
+                document.getElementById("product-search").value = ""; // Clear the input
+                document.getElementById("quantity").value = 1;       // Reset quantity
+                document.getElementById("product-suggestions").style.display = "none"; // Hide suggestions after adding
+                updateOrderList();
+            } else if (!productExists && product.trim() !== "") {
+                alert("Product not found in the list.");
+            } else {
+                alert("Please select a product from the suggestions and enter a valid quantity.");
+            }
+        }
+
+        function updateOrderList() {
+            const orderDiv = document.getElementById("order-list");
+            orderDiv.innerHTML = "";
+            if (orderList.length > 0) {
+                orderList.forEach((item, index) => {
+                    const div = document.createElement("div");
+                    div.classList.add("order-item");
+                    div.innerHTML = `<span>${item.product} - QTY: ${item.quantity}</span><button type="button" class="remove-btn" onclick="removeProduct(${index})">&times;</button>`;
+                    orderDiv.appendChild(div);
+                });
+            } else {
+                orderDiv.innerHTML = "<p>No products selected yet.</p>";
+            }
+        }
+
+        function removeProduct(index) {
+            orderList.splice(index, 1);
+            updateOrderList();
+        }
+
+        function toggleDelivery() {
+            document.getElementById("delivery-details").style.display = document.getElementById("delivery").value === "Delivery" ? "block" : "none";
+        }
+
+        function generatePDF() {
+            const element = document.getElementById("order-form");
+            const salesperson = document.getElementById("salesperson").value;
+            const orderDate = new Date(document.getElementById("order-date").value);
+            
+            // Format the date and time for the filename
+            const formattedDate = orderDate.toISOString().split('T')[0]; // Get only the date part
+            const fileName = `${salesperson}_${formattedDate}.pdf`;
+
+            // Hide empty fields
+            const deliveryMode = document.getElementById("delivery").value;
+            if (deliveryMode === "Delivery") {
+                const customerAddress = document.getElementById("customer").value;
+                if (!customerAddress) {
+                    document.getElementById("delivery-details").style.display = "none";
+                }
+            }
+
+            const additionalInfo = document.getElementById("additional-info").value;
+            if (!additionalInfo) {
+                document.getElementById("additional-info").style.display = "none";
+            }
+
+            // Generate PDF
+            const opt = {
+                margin:       5,
+                filename:     fileName, // Use the generated filename
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                alert("Your order has been saved as a PDF file. Please email it to the relevant recipient.");
+            }).catch(err => {
+                console.error("Error generating PDF:", err);
+                alert("There was an error generating the PDF. Please try again.");
+            }).finally(() => {
+                // Restore visibility of hidden fields
+                document.getElementById("delivery-details").style.display = "block";
+                document.getElementById("additional-info").style.display = "block";
+            });
+        }
+
+        // Initial call to updateOrderList to show the "No products selected" message
+        updateOrderList();
+    </script>
+</body>
+</html>
